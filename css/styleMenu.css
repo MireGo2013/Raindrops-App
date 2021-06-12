@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Lobster", cursive;
+  font-size: 10px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(#887de9), to(#0ac9d6)), url("../source/img/rain.png");
+  background: linear-gradient(180deg, transparent, #887de9, #0ac9d6), url("../source/img/rain.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+header {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.title {
+  text-align: center;
+  font-size: 10rem;
+  color: #a8e6f5;
+  letter-spacing: 4px;
+  text-shadow: 7px 7px 15px black;
+}
+
+@media screen and (max-width: 800px) {
+  .title {
+    font-size: 8rem;
+    letter-spacing: 3px;
+    text-shadow: 5px 5px 11px black;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 6rem;
+    letter-spacing: 2px;
+    text-shadow: 4px 4px 9px black;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .title {
+    font-size: 5rem;
+    letter-spacing: 1.5px;
+    text-shadow: 3px 3px 7px black;
+  }
+}
+
+.phrase {
+  text-align: center;
+  font-size: 2.2rem;
+  color: black;
+  letter-spacing: 2px;
+  text-shadow: 7px 7px 15px #4643e2;
+}
+
+@media screen and (max-width: 800px) {
+  .phrase {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-shadow: 5px 5px 11px black;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .phrase {
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+    text-shadow: 4px 4px 9px black;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .phrase {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 3px 3px 7px black;
+  }
+}
+
+main {
+  -webkit-box-flex: 0.7;
+      -ms-flex: 0.7;
+          flex: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.play_game,
+.info_game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 20px;
+  background: greenyellow;
+  border: 1px solid black;
+}
+
+.play_game:last-child,
+.info_game:last-child {
+  margin-right: 0;
+}
+
+.play_game > span,
+.info_game > span {
+  font-size: 2.5rem;
+  padding: 5px;
+}
+
+@media screen and (max-width: 320px) {
+  .play_game > span,
+  .info_game > span {
+    font-size: 2rem;
+  }
+}
+
+.play_game > .icon_star,
+.info_game > .icon_star {
+  background-image: url("../source/img/star.png");
+}
+
+.play_game > .icon_question,
+.info_game > .icon_question {
+  background-image: url("../source/img/question.png");
+}
+
+.play_game > .icon,
+.info_game > .icon {
+  min-width: 45px;
+  height: 31px;
+  padding: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.play_game:hover,
+.play_game :active,
+.info_game:hover,
+.info_game :active {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.info_game {
+  background: #0ac9d6 !important;
+}
+/*# sourceMappingURL=styleMenu.css.map */

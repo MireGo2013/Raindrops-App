@@ -1,0 +1,19 @@
+$ladgerScrenSize: 800px;
+$middleScrenSize: 500px;
+$minScrenSize: 320px;
+
+@mixin sizeScren($size) {
+	@if ($size == ladgerScrenSize) {
+		@media screen and (max-width: $ladgerScrenSize) {
+			@content;
+		}
+	} @else if ($size == middleScrenSize) {
+		@media screen and (max-width: $middleScrenSize) {
+			@content;
+		}
+	} @else if ($size == minScrenSize) {
+		@media screen and (max-width: $minScrenSize) {
+			@content;
+		}
+	}
+}
