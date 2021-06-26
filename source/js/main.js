@@ -13,22 +13,28 @@ const DEFAULT_DATA = {
 }
 
 class Drop {
-	constructor(uncorrectAnswer) {
-		this.uncorrectAnswer = uncorrectAnswer
+	constructor() {
 		this.operators = DEFAULT_DATA.OPERATORS
 		this.$areaRainEl = document.querySelector('.area_rain')
-		this.$wave = document.querySelector('.wave')
 		this.createDrop()
-		this.autoRemoveDrop()
 	}
 
 	createDrop() {
-		let drop = document.createElement('div')
-		let numberFirstElem = document.createElement('div')
-		let operationElem = document.createElement('div')
-		let numberSecondElem = document.createElement('div')
+		let drop = this.createElement('div')
 		let styleDrop = this.randomDropStyle(DEFAULT_DATA.STYLE_DROP)
 		drop.classList.add(styleDrop, 'drop')
+		let answer = this.createExpressionInnerDrop(drop)
+		this.$areaRainEl.prepend(drop)
+		this.animateDropFall(drop)
+		this.element = drop
+		this.type = styleDrop
+		this.answer = answer
+	}
+
+	createExpressionInnerDrop(container) {
+		let numberFirstElem = this.createElement('div')
+		let operationElem = this.createElement('div')
+		let numberSecondElem = this.createElement('div')
 		numberFirstElem.classList.add('first_num')
 		operationElem.classList.add('operator')
 		numberSecondElem.classList.add('second_num')
@@ -36,20 +42,20 @@ class Drop {
 		numberFirstElem.innerText = randomNumberAndOperationObj.firstNum
 		operationElem.innerText = randomNumberAndOperationObj.operation
 		numberSecondElem.innerText = randomNumberAndOperationObj.secondNum
-		let result = this.getResultExpression(randomNumberAndOperationObj)
-		drop.appendChild(numberFirstElem)
-		drop.appendChild(operationElem)
-		drop.appendChild(numberSecondElem)
-		this.$areaRainEl.prepend(drop)
-		this.animateDropFall(drop)
-		this.element = drop
-		this.type = styleDrop
-		this.answer = result
+		let answer = this.getResultExpression(randomNumberAndOperationObj)
+		container.appendChild(numberFirstElem)
+		container.appendChild(operationElem)
+		container.appendChild(numberSecondElem)
+		return answer
+	}
+
+	createElement(tagName) {
+		return document.createElement(tagName)
 	}
 
 	randomDropStyle(arrStyle) {
-		let index = this.randomNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-		arrStyle = index <= 9 ? arrStyle[0] : arrStyle[1]
+		let index = Math.floor(Math.random() * 10)
+		arrStyle = index <= 8 ? arrStyle[0] : arrStyle[1]
 		return arrStyle
 	}
 
@@ -58,7 +64,8 @@ class Drop {
 		let firstNum = this.randomNumber(numbersArr)
 		let secondNum = this.randomNumber(numbersArr)
 		let operation = this.randomNumber(DEFAULT_DATA.OPERATORS)
-		if (firstNum < secondNum && ['-', '/'].includes(operation)) {
+		let isValidParams = firstNum < secondNum && ['-', '/'].includes(operation)
+		if (isValidParams) {
 			[firstNum, secondNum] = [secondNum, firstNum]
 		}
 		if (operation === '/' && firstNum % secondNum != 0) {
@@ -95,8 +102,8 @@ class Drop {
 	}
 
 	randomLeftPosition(maxLeft) {
-		let pos = Math.floor(Math.random() * maxLeft + 1)
-		return pos
+		return Math.floor(Math.random() * maxLeft + 1)
+
 	}
 
 	removeDrop() {
@@ -111,30 +118,40 @@ class Drop {
 		}, 150)
 	}
 
-	autoRemoveDrop() {
-		if (!this.element) return
-		let waveTop = this.$wave.offsetTop
-		const dropPosition = this.element.offsetTop + this.element.offsetHeight;
-		if (dropPosition >= waveTop + this.element.offsetHeight) {
-			this.element.remove()
-			this.upWave()
-		}
-		let idTimeDropFalse = setTimeout(() => {
-			this.autoRemoveDrop()
-		}, 100)
-	}
-
-	upWave() {
-		let nextHightWave = this.$wave.offsetHeight + DEFAULT_DATA.UP_WAVE
-		this.$wave.style.height = nextHightWave + 'px'
-		this.uncorrectAnswer()
-	}
-
 	randomNumber(arrNumber) {
 		return arrNumber[Math.floor(Math.random() * arrNumber.length)]
 	}
 
 }
+
+class Wave {
+	constructor(dropEl, wrongAnswerHandler) {
+		this.waveEl = document.querySelector('.wave')
+		this.dropEl = dropEl
+		this.wrongAnswerHandler = wrongAnswerHandler
+		this.autoRemoveFailDrop()
+	}
+
+	upWave() {
+		let nextHightWave = this.waveEl.offsetHeight + DEFAULT_DATA.UP_WAVE
+		this.waveEl.style.height = nextHightWave + 'px'
+		this.wrongAnswerHandler()
+	}
+
+	autoRemoveFailDrop() {
+		if (!this.dropEl) return
+		let waveTop = this.waveEl.offsetTop
+		const dropPosition = this.dropEl.offsetTop + this.dropEl.offsetHeight;
+		if (dropPosition >= waveTop + this.dropEl.offsetHeight) {
+			this.dropEl.remove()
+			this.upWave()
+		}
+		let idTimeDropFalse = setTimeout(() => {
+			this.autoRemoveFailDrop()
+		}, 100)
+	}
+}
+
 class InputHandler {
 	constructor(chechAnswerHandler) {
 		this.chechAnswerHandler = chechAnswerHandler
@@ -145,11 +162,11 @@ class InputHandler {
 	}
 
 	addListeners() {
-		this.$calculatorEl.addEventListener('click', this.handlerCalculator)
-		window.addEventListener('keydown', this.handlerCalculator)
+		this.$calculatorEl.addEventListener('click', this.handlerCalculatorBtn)
+		window.addEventListener('keydown', this.handlerCalculatorBtn)
 	}
 
-	handlerCalculator = (e) => {
+	handlerCalculatorBtn = (e) => {
 		e.preventDefault()
 		if (DEFAULT_DATA.CALC_BUTTONS.includes(e.key)) {
 			this.handlerCalcOnKeybourd(e)
@@ -202,7 +219,7 @@ class InputHandler {
 
 	deleteEndNumInputScreen() {
 		if (this.$inputScreen.value.length === 1) {
-			this.$inputScreen.value = '0'
+			this.clearInputScreen()
 		} else {
 			this.$inputScreen.value = this.$inputScreen.value.slice(0, this.$inputScreen.value.length - 1)
 		}
@@ -211,7 +228,7 @@ class InputHandler {
 	enterResult() {
 		this.answerInputScreen = this.$inputScreen.value
 		this.chechAnswerHandler(this.answerInputScreen)
-		this.$inputScreen.value = '0';
+		this.clearInputScreen()
 	}
 
 }
@@ -271,6 +288,7 @@ class GameConrtoller {
 		this.counterCorrectAnswer = 0;
 		this.dropsEl = []
 
+
 		this.$fieldBgSoundAndFullScreen.addEventListener('click', this.handlerSoundAndFullScreen)
 		this.$restartButton.addEventListener('click', this.restartGame)
 	}
@@ -329,7 +347,7 @@ class GameConrtoller {
 				}
 			}
 		}
-		this.uncorrectAnswer()
+		this.waveEl.upWave()
 	}
 
 	correctAnswer() {
@@ -359,7 +377,7 @@ class GameConrtoller {
 	upSpeedDropsFall() {
 		if (DEFAULT_DATA.SPEED_FALL <= 5 || DEFAULT_DATA.SPEED_GENERATE_DROPS <= 1500) return
 		DEFAULT_DATA.SPEED_FALL -= 1
-		DEFAULT_DATA.SPEED_GENERATE_DROPS -= 100
+		DEFAULT_DATA.SPEED_GENERATE_DROPS -= 150
 	}
 
 	uncorrectAnswer() {
@@ -383,7 +401,7 @@ class GameConrtoller {
 				drop.removeDrop()
 			})
 			this.showFinalScore()
-			this.dropsEl[0].$wave.style.height = 15 + '%'
+			this.waveEl.waveEl.style.height = 15 + '%'
 			this.dropsEl = []
 		}
 	}
@@ -408,8 +426,9 @@ class GameConrtoller {
 	}
 
 	addDrop() {
-		let drop = new Drop(this.uncorrectAnswer.bind(this))
-		this.dropsEl.push(drop)
+		this.drop = new Drop()
+		this.dropsEl.push(this.drop)
+		this.waveEl = new Wave(this.drop.element, this.uncorrectAnswer.bind(this))
 	}
 
 	generateDrops() {
