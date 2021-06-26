@@ -1,0 +1,67 @@
+#deskScore {
+	width: 400px;
+	height: 250px;
+	background: rgb(130, 206, 171);
+	border-radius: 5px;
+	box-shadow: 0 0 10px 15px rgb(12, 54, 35);
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	display: none;
+
+	& span {
+		font-weight: bold;
+	}
+
+	.score_end {
+		text-align: center;
+		font-size: 4rem;
+		letter-spacing: 5px;
+		color: red;
+		@include sizeScren(middleScrenSize) {
+			font-size: 3.5rem;
+		}
+		@include sizeScren(minScrenSize) {
+			font-size: 2.5rem;
+		}
+	}
+
+	p,
+	span {
+		text-align: center;
+		font-size: 3rem;
+		@include sizeScren(middleScrenSize) {
+			font-size: 2.5rem;
+		}
+		@include sizeScren(minScrenSize) {
+			font-size: 2rem;
+		}
+	}
+
+	@include sizeScren(middleScrenSize) {
+		width: 280px;
+		height: 190px;
+	}
+	@include sizeScren(minScrenSize) {
+		width: 250px;
+		height: 150px;
+	}
+}
+
+#desk_btn {
+	display: inline;
+	border-radius: 5px;
+	height: 40px;
+	background: linear-gradient(rgb(100, 100, 170), rgb(160, 164, 216));
+	font-size: 2rem;
+}
+
+#deskScore.active {
+	display: flex;
+}

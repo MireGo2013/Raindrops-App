@@ -1,0 +1,82 @@
+.score_area {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex: 1;
+}
+
+.score_wrapper {
+	width: 85%;
+	border: 1px solid green;
+	height: 40px;
+	border-radius: 0px 0px 20px 20px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	background: whitesmoke;
+	box-shadow: 0 7px 7px black;
+	> span,
+	div {
+		font-family: "Merriweather", serif;
+		font-weight: 700;
+		font-size: 2rem;
+		@include sizeScren(middleScrenSize) {
+			font-weight: 500;
+			font-size: 1.5rem;
+			margin: 5px 5px;
+		}
+	}
+	:last-child {
+		margin-right: 0px;
+	}
+	@include sizeScren(ladgerScrenSize) {
+		width: 90%;
+	}
+	@include sizeScren(minScrenSize) {
+		font-size: 1.2rem;
+		margin: 0;
+		.score {
+			display: inline-block;
+			margin-right: 10px;
+		}
+	}
+}
+
+.star_icon {
+	width: 35px;
+	height: 35px;
+	margin: auto 10px;
+	background-image: url("../source/img/star.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.lvl_wrapper {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@include sizeScren(minScrenSize) {
+		flex-direction: column;
+	}
+}
+
+.lvl {
+	font-size: 2rem;
+	color: rgba($color: #3cfa3c, $alpha: 1);
+	> span {
+		font-size: 2rem;
+		@include sizeScren(middleScrenSize) {
+			font-size: 1.5rem;
+		}
+	}
+	@include sizeScren(middleScrenSize) {
+		font-size: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		margin-right: 5px;
+		justify-content: center;
+		align-items: center;
+	}
+}

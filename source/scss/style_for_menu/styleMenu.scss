@@ -1,0 +1,120 @@
+@import "../mixin/mixin";
+@import "../general";
+
+body {
+	width: 100vw;
+	height: 100vh;
+	background: linear-gradient(180deg, transparent, rgb(136, 125, 233), rgb(10, 201, 214)),
+		url("../source/img/rain.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.title {
+	text-align: center;
+	font-size: 10rem;
+	color: hsl(192, 79%, 81%);
+	letter-spacing: 4px;
+	text-shadow: 7px 7px 15px black;
+	@include sizeScren(ladgerScrenSize) {
+		font-size: 8rem;
+		letter-spacing: 3px;
+		text-shadow: 5px 5px 11px black;
+	}
+	@include sizeScren(middleScrenSize) {
+		font-size: 6rem;
+		letter-spacing: 2px;
+		text-shadow: 4px 4px 9px black;
+	}
+	@include sizeScren(minScrenSize) {
+		font-size: 5rem;
+		letter-spacing: 1.5px;
+		text-shadow: 3px 3px 7px black;
+	}
+}
+
+.phrase {
+	text-align: center;
+	font-size: 2.2rem;
+	color: black;
+	letter-spacing: 2px;
+	text-shadow: 7px 7px 15px rgb(70, 67, 226);
+	@include sizeScren(ladgerScrenSize) {
+		font-size: 1.8rem;
+		letter-spacing: 2px;
+		text-shadow: 5px 5px 11px black;
+	}
+	@include sizeScren(middleScrenSize) {
+		font-size: 1.5rem;
+		letter-spacing: 1.5px;
+		text-shadow: 4px 4px 9px black;
+	}
+	@include sizeScren(minScrenSize) {
+		font-size: 1rem;
+		letter-spacing: 1px;
+		text-shadow: 3px 3px 7px black;
+	}
+}
+
+main {
+	flex: 0.7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.play_game,
+.info_game {
+	display: flex;
+	margin-right: 20px;
+	background: greenyellow;
+	border: 1px solid black;
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	& > span {
+		font-size: 2.5rem;
+		padding: 5px;
+		@include sizeScren(minScrenSize) {
+			font-size: 2rem;
+		}
+	}
+
+	& > .icon_star {
+		background-image: url("../source/img/star.png");
+	}
+	& > .icon_question {
+		background-image: url("../source/img/question.png");
+	}
+
+	& > .icon {
+		min-width: 45px;
+		height: 31px;
+		padding: 20px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	&:hover,
+	:active {
+		cursor: pointer;
+		transform: scale(1.05);
+	}
+}
+
+.info_game {
+	background: rgb(10, 201, 214) !important;
+}

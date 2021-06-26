@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/styleGame.css" />
+    <link
+      rel="shortcut icon"
+      href="./icon/dropletlinear_106250.ico"
+      type="image/x-icon"
+    />
+    <title>Reindrops game</title>
+  </head>
+  <body>
+    <main class="main_wrapper">
+      <div id="deskScore">
+        <h2 class="score_end">GAME OVER</h2>
+        <p>Your SCORE: <span id="score_desk">0</span></p>
+        <button id="desk_btn">Restart</button>
+      </div>
+      <section class="area_rain">
+        <div class="wave"></div>
+      </section>
+      <section class="area_calc">
+        <div class="score_area">
+          <div class="score_wrapper">
+            <span class="star_icon"></span>
+            <span class="score_title">Score:</span>
+            <div class="score">0</div>
+          </div>
+        </div>
+        <div class="calculator_wrapper">
+          <div class="screen_calc btn_calc">
+            <input
+              class="display_answer"
+              type="text"
+              maxlength="4"
+              value="0"
+              disabled
+            />
+          </div>
+          <button class="key1 btn_calc" data-num="1">1</button>
+          <button class="key2 btn_calc" data-num="2">2</button>
+          <button class="key3 btn_calc" data-num="3">3</button>
+          <button class="key_Clear btn_calc" data-func="Delete">Clear</button>
+          <button class="key4 btn_calc" data-num="4">4</button>
+          <button class="key5 btn_calc" data-num="5">5</button>
+          <button class="key6 btn_calc" data-num="6">6</button>
+          <button class="key_Enter btn_calc" data-func="Enter">Enter</button>
+          <button class="key7 btn_calc" data-num="7">7</button>
+          <button class="key8 btn_calc" data-num="8">8</button>
+          <button class="key9 btn_calc" data-num="9">9</button>
+          <button class="key0 btn_calc" data-num="0">0</button>
+          <button class="key_Delete btn_calc" data-func="Backspace">
+            Backspace
+          </button>
+        </div>
+
+        <div class="lvl_wrapper">
+          <div class="lvl">Level:<span>1</span></div>
+        </div>
+      </section>
+    </main>
+    <audio
+      id="sound_back"
+      src="./sounds/ocean.mp3"
+      type="audio/mpeg"
+      loop
+    ></audio>
+    <audio
+      id="sound_answerTrue"
+      src="./sounds/correct-answer.mp3"
+      type="audio/mpeg"
+    ></audio>
+    <audio
+      id="sound_answerFalse"
+      src="./sounds/incorrect-answer.mp3"
+      type="audio/mpeg"
+    ></audio>
+    <section class="footer_controls">
+      <div class="controlsBtn_wrapper">
+        <button class="control_btn volume_btn"></button>
+        <button class="control_btn fullscreen_btn"></button>
+      </div>
+    </section>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

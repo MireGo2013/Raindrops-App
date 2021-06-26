@@ -1,0 +1,72 @@
+.drop_blue,
+.drop_bonus {
+	width: 100px;
+	height: 100px;
+	background-image: url("../source/img/blue1.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	transform: translateY(-100%);
+	@include sizeScren(middleScrenSize) {
+		width: 60px;
+		height: 80px;
+	}
+}
+
+.drop_bonus {
+	background-image: url("../source/img/blue2.png");
+}
+
+.first_num,
+.operator,
+.second_num {
+	font-size: 1.9rem;
+	font-weight: bold;
+	@include sizeScren(middleScrenSize) {
+		font-size: 1.2rem;
+	}
+}
+
+.drop_blue.animate,
+.drop_bonus.animate {
+	background-image: none;
+
+	img {
+		width: 100%;
+		height: auto;
+		animation: explosion 0.2s linear;
+	}
+	@include sizeScren(middleScrenSize) {
+		width: 60px;
+		height: 80px;
+	}
+}
+
+.drop {
+	z-index: 1;
+}
+
+@keyframes explosion {
+	0% {
+		width: 30%;
+		height: auto;
+	}
+
+	100% {
+		width: 100%;
+		height: auto;
+	}
+}
+
+.drop_blue.animateFall,
+.drop_bonus.animateFall {
+	top: 100%;
+	transition: top linear;
+}
